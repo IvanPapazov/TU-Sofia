@@ -1,3 +1,3 @@
-num=int(input())
-index=int(input())
-print(bin(num)[index])
+num=int(input("number = "))
+index=int(input("index = "))
+print("True" if (bin(num)[index]==str(1)) else "False")
