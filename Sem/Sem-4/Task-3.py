@@ -12,6 +12,8 @@ def list_avg(lst,multiplier=1):
         return "Error: Division by zero\nNone"
     return avrg/count
 
+print(list_avg(['4', 1.5, "@7$", 3.5, (1, "hi")]))
+
 print(list_avg(['6', 3, 3.0], 2))
 
 print(list_avg(['%$', {}]))
