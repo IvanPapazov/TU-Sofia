@@ -1,8 +1,10 @@
 import random
+
+
 class InvalidParameterError(Exception):
-    def __init__(self, e,*args):
-        message = f"Invalid class parameter: {e}"
-        super().__init__(message, *args)
+    def __init__(self,invalidParameter):
+        message = f"Invalid class parameter: {invalidParameter}"
+        super().__init__(message)
 
 
 class MissingParameterError(Exception):
@@ -10,15 +12,13 @@ class MissingParameterError(Exception):
 
 
 class InvalidAgeError(InvalidParameterError):
-    def __init__(self,e,*args):
-        message = f"Invalid class parameter: {e}"
-        super().__init__(message, e,*args)
+    def __init__(self):
+        super().__init__("age")
 
 
 class InvalidSoundError(InvalidParameterError):
-    def __init__(self, e, *args):
-        message = f"Invalid class parameter: {e}"
-        super().__init__(message, e, *args)
+    def __init__(self):
+        super().__init__("sound")
 
 
 class JungleAnimal:
@@ -31,9 +31,9 @@ class JungleAnimal:
         if type(name) is not str:
             raise InvalidParameterError("name")
         if type(age) is not int:
-            raise InvalidAgeError("age")
+            raise InvalidAgeError()
         if type(name) is not str:
-            raise InvalidSoundError("sound")
+            raise InvalidSoundError()
 
     def make_sound(self):
         print(f"{self.name} says {self.sound}!")
@@ -47,11 +47,11 @@ class JungleAnimal:
 
 class Jaguar(JungleAnimal):
     def __init__(self, name, age, sound):
-        super.__init__(name, age, sound)
+        super().__init__(name, age, sound)
         if self.age > 15:
-            raise InvalidAgeError("age")
+            raise InvalidAgeError()
         if sound.count("r")>=2:
-            raise InvalidSoundError("sound")
+            raise InvalidSoundError()
 
     def print(self):
         print(f"Jaguar({self.name}, {self.age}, {self.sound})")
@@ -65,11 +65,11 @@ class Jaguar(JungleAnimal):
 
 class Lemur(JungleAnimal):
     def __init__(self, name, age, sound):
-        super.__init__(name, age, sound)
+        super().__init__(name, age, sound)
         if self.age > 10:
-            raise InvalidAgeError("age")
+            raise InvalidAgeError()
         if 'e' not in self.sound:
-            raise InvalidSoundError("sound")
+            raise InvalidSoundError()
 
     def print(self):
         print(f"Lemur({self.name}, {self.age}, {self.sound})")
@@ -91,11 +91,11 @@ class Lemur(JungleAnimal):
 
 class Human(JungleAnimal):
     def __init__(self, name, age, sound):
-        super.__init__(name, age, sound)
+        super().__init__(name, age, sound)
         if self.age > 10:
-            raise InvalidAgeError("age")
+            raise InvalidAgeError()
         if 'e' not in self.sound:
-            raise InvalidSoundError("sound")
+            raise InvalidSoundError()
 
     def print(self):
         print(f"Human({self.name}, {self.age}, {self.sound})")
@@ -159,16 +159,19 @@ sounds = [
 
 for i in range(102):
     try:
-        rnd = random.randint(0, 9)
-        age = random.randint(7, 20)
-        name = random.randint(0, len(names) - 1)
-        sound = random.randint(0, len(sounds) - 1)
+        rnd = int(random.randint(0, 9))
+        age = int(random.randint(7, 20))
+        name = int(random.randint(0, len(names) - 1))
+        sound = int(random.randint(0, len(sounds) - 1))
         if rnd >= 0 and rnd <= 3:
-            animals.append(Lemur(names[name], age, sounds[sound]))
+            lemur=Lemur(names[name], age, sounds[sound])
+            animals.append(lemur)
         elif rnd > 3 and rnd <= 7:
-            animals.append(Jaguar(names[name], age, sounds[sound]))
+            jaguar=Jaguar(names[name], age, sounds[sound])
+            animals.append(jaguar)
         elif rnd > 7 and rnd <= 9:
-            animals.append(Human(names[name], age, sounds[sound]))
+            human=Human(names[name], age, sounds[sound])
+            animals.append(human)
     except InvalidAgeError():
         print(f"{names[name]} {age} {sounds[sound]} {InvalidAgeError()}")
     except InvalidSoundError():
