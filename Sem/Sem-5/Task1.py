@@ -50,7 +50,7 @@ class Jaguar(JungleAnimal):
         super.__init__(name, age, sound)
         if self.age > 15:
             raise InvalidAgeError("age")
-        if 'r' not in self.sound:
+        if sound.count("r")>=2:
             raise InvalidSoundError("sound")
 
     def print(self):
