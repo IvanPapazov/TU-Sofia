@@ -172,14 +172,14 @@ for i in range(102):
         elif rnd > 7 and rnd <= 9:
             human=Human(names[name], age, sounds[sound])
             animals.append(human)
-    except InvalidAgeError():
-        print(f"{names[name]} {age} {sounds[sound]} {InvalidAgeError()}")
-    except InvalidSoundError():
-        print(f"{names[name]} {age} {sounds[sound]} {InvalidSoundError()}")
-    except InvalidParameterError():
-        print(f"{names[name]} {age} {sounds[sound]} {InvalidParameterError()}")
-    except MissingParameterError():
-        print(f"{names[name]} {age} {sounds[sound]} {MissingParameterError()}")
+    except InvalidAgeError as e:
+        print(f"{names[name]} {age} {sounds[sound]} {str(e)}")
+    except InvalidSoundError as e:
+        print(f"{names[name]} {age} {sounds[sound]} {str(e)}")
+    except InvalidParameterError as e:
+        print(f"{names[name]} {age} {sounds[sound]} {str(e)}")
+    except MissingParameterError as e:
+        print(f"{names[name]} {age} {sounds[sound]} {str(e)}")
 
 print(f"The jungle now has {len(animals)} animals")
 
